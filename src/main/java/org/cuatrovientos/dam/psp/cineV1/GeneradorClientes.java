@@ -30,6 +30,11 @@ public class GeneradorClientes implements Runnable{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("> SE HA PARADO EL GENERADOR DE CLIENTES");
+	}
+	
+	public void pararGenerador() {
+		this.estaActivo = false;
 	}
 
 }
