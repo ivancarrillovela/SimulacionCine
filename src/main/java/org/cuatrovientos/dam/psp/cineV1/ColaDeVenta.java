@@ -5,20 +5,23 @@ import java.util.Queue;
 
 public class ColaDeVenta{
 	
-	private Queue<Cliente> colaInfinita = new LinkedList<>();
+	private int id;
+	private Queue<Cliente> cola = new LinkedList<>();
 
-	public ColaDeVenta() {}
+	public ColaDeVenta(int id) {
+		this.id = id;
+	}
 	
 	public synchronized void anadirCliente(Cliente cliente) {
-		this.colaInfinita.add(cliente);
+		this.cola.add(cliente);
 	}
 	
 	public synchronized Cliente cogerCliente() {
-		return colaInfinita.poll();
+		return cola.isEmpty() ? null : cola.poll();
 	}
 	
 	public synchronized boolean estaVacia() {
-		return colaInfinita.isEmpty();
+		return cola.isEmpty();
 	}
 
 }
