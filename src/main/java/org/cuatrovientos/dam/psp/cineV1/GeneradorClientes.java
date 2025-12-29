@@ -18,7 +18,7 @@ public class GeneradorClientes implements Runnable{
 
 	@Override
 	public void run() {
-		int idNuevoCliente = Configuracion.ID_INICIAL;
+		int idNuevoCliente = Configuracion.NUM_ID_INICIAL;
 		while (estaActivo) {
 			try {
 				Cliente cliente = new Cliente(idNuevoCliente++);

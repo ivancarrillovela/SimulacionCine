@@ -5,9 +5,9 @@ public class Simulador {
 	public static void main(String[] args) {
 
 		Cine miCine = new Cine(Configuracion.NOMBRE_CINE, Configuracion.NUM_ASIENTOS);
-		ColaDeVenta colaDeVenta = new ColaDeVenta(Configuracion.ID_INICIAL);
+		ColaDeVenta colaDeVenta = new ColaDeVenta(Configuracion.NUM_ID_INICIAL);
 		
-		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.ID_INICIAL, colaDeVenta);
+		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.NUM_ID_INICIAL, colaDeVenta);
 		Taquilla taquilla1 = new Taquilla(1, miCine, colaDeVenta);
 		Taquilla taquilla2 = new Taquilla(2, miCine, colaDeVenta);
 		

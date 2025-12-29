@@ -24,6 +24,6 @@ public class Configuracion {
     public static final long ESPERA_PASIVA = 1000;
     
     // Numero incial para Ids
-    public static final int ID_INICIAL = 1;
+    public static final int NUM_ID_INICIAL = 1;
     
 }
