@@ -1,5 +1,24 @@
 package org.cuatrovientos.dam.psp.cineV1;
 
-public class Taquilla {
+public class Taquilla implements Runnable{
+
+	private int id;
+	private Cine cine;
+	private ColaDeVenta colaDeVenta;
+	private boolean abierta = true;
+	
+	public Taquilla(int id, Cine cine, ColaDeVenta colaDeVenta) {
+		super();
+		this.id = id;
+		this.cine = cine;
+		this.colaDeVenta = colaDeVenta;
+	}
+
+	@Override
+	public void run() {
+		while(abierta) {
+			
+		}
+	}
 
 }
