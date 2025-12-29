@@ -35,9 +35,11 @@ public class Taquilla implements Runnable {
 						System.out.println("TAQUILLA " + id + ": entrada vendida al cliente " + cliente.getId());
 					} else {
 						System.out.println("TAQUILLA " + id + ": SE HAN AGOTADO LAS ENTRADAS");
-						cine.setTiempoEnVenderTodo(System.currentTimeMillis() - tiempoInicio);					}
+						cine.setTiempoEnVenderTodo(System.currentTimeMillis() - tiempoInicio);
+						cerrarTaquilla();					
+					}
 				}
-				Thread.sleep(Configuracion.ESPERA_PASIVA);
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
