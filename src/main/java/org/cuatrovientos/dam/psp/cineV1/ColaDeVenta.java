@@ -20,7 +20,7 @@ public class ColaDeVenta{
 		return cola.isEmpty() ? null : cola.poll();
 	}
 	
-	public int clientesEnCola() {
+	public synchronized int numClientesEnCola() {
 		return cola.size();
 	}
 

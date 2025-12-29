@@ -38,6 +38,8 @@ public class Taquilla implements Runnable {
 						cine.setTiempoEnVenderTodo(System.currentTimeMillis() - tiempoInicio);
 						cerrarTaquilla();					
 					}
+				}else {
+					Thread.sleep(Configuracion.ESPERA_PASIVA);
 				}
 				
 			} catch (InterruptedException e) {

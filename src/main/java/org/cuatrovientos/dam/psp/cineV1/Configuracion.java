@@ -20,6 +20,9 @@ public class Configuracion {
     public static final long TIEMPO_GENERAR_CLIENTE_MIN = 4 * 1000;
     public static final long TIEMPO_GENERAR_CLIENTE_MAX = 6 * 1000 + 1; // Sumo 1 por que Random excluye el número máximo
     
+    // Tiempo de espera pasivo para Threat.sleep
+    public static final long ESPERA_PASIVA = 1000;
+    
     // Numero incial para Ids
     public static final int ID_INICIAL = 1;
     
