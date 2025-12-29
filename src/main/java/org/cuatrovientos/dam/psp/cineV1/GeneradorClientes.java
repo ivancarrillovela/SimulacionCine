@@ -18,13 +18,13 @@ public class GeneradorClientes implements Runnable{
 
 	@Override
 	public void run() {
-		int idNuevoCliente = 0;
+		int idNuevoCliente = Configuracion.ID_INICIAL;
 		while (estaActivo) {
 			try {
 				Cliente cliente = new Cliente(idNuevoCliente++);
 				colaDeVenta.anadirCliente(cliente);
 				
-				long tiempoEspera = rnd.nextLong(4000,6001);
+				long tiempoEspera = rnd.nextLong(Configuracion.TIEMPO_GENERAR_CLIENTE_MIN, Configuracion.TIEMPO_GENERAR_CLIENTE_MAX);
 				Thread.sleep(tiempoEspera);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

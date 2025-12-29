@@ -38,4 +38,8 @@ public class Cine {
 		return tiempoEnVenderTodo;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
 }

@@ -1,16 +1,13 @@
 package org.cuatrovientos.dam.psp.cineV1;
 
 public class Simulador {
-	
-	static int NUM_ASIENTOS = 200;
-	static int TIEMPO_APERTURA = 30 * 60 * 1000;
 
 	public static void main(String[] args) {
 
-		Cine miCine = new Cine("Golem La Morea", NUM_ASIENTOS);
-		ColaDeVenta colaDeVenta = new ColaDeVenta(1);
+		Cine miCine = new Cine(Configuracion.NOMBRE_CINE, Configuracion.NUM_ASIENTOS);
+		ColaDeVenta colaDeVenta = new ColaDeVenta(Configuracion.ID_INICIAL);
 		
-		GeneradorClientes generadorClientes = new GeneradorClientes(1, colaDeVenta);
+		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.ID_INICIAL, colaDeVenta);
 		Taquilla taquilla1 = new Taquilla(1, miCine, colaDeVenta);
 		Taquilla taquilla2 = new Taquilla(2, miCine, colaDeVenta);
 		
@@ -18,15 +15,16 @@ public class Simulador {
 		Thread hiloT1 = new Thread(taquilla1);
 		Thread hiloT2 = new Thread(taquilla2);
 		
-		System.out.println("> ABREN LAS TAQUILLAS!!! Quedan 30 mins para empezar la película");
+		System.out.println("---BIENVENIDO A LOS CINES " + miCine.getNombre().toUpperCase() + "---");
+		System.out.println("¡¡¡SE ABREN LAS TAQUILLAS!!! Quedan 30 minutos para empezar la película");
 		
 		hiloGenerador.start();
 		hiloT1.start();
 		hiloT2.start();
 		
 		try {
-			Thread.sleep(TIEMPO_APERTURA);
-			System.out.println("SE CIERRAN LAS TAQUILLAS!!! La película va ha empezar ya");
+			Thread.sleep(Configuracion.TIEMPO_APERTURA);
+			System.out.println("¡¡¡SE CIERRAN LAS TAQUILLAS!!! La película empieza ya");
 			
 			generadorClientes.pararGenerador();
 			taquilla1.cerrarTaquilla();

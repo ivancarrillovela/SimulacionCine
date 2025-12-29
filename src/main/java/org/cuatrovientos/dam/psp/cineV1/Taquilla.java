@@ -21,14 +21,14 @@ public class Taquilla implements Runnable {
 	@Override
 	public void run() {
 		long tiempoInicio = System.currentTimeMillis();
-		System.out.println("La Taquilla " + id + " acaba de abrir");
+		System.out.println("> La Taquilla " + id + " acaba de abrir");
 		
 		while (abierta && cine.asientosLibres() > 0) {
 			try {
 				Cliente cliente = colaDeVenta.cogerCliente();
 
 				if (cliente != null) {
-					long tiempoPorVenta = rnd.nextLong(20000, 30001);
+					long tiempoPorVenta = rnd.nextLong(Configuracion.TIEMPO_VENTA_MIN, Configuracion.TIEMPO_VENTA_MAX);
 					Thread.sleep(tiempoPorVenta);
 
 					if (cine.venderEntrada()) {
@@ -37,7 +37,7 @@ public class Taquilla implements Runnable {
 						System.out.println("TAQUILLA " + id + ": SE HAN AGOTADO LAS ENTRADAS");
 						cine.setTiempoEnVenderTodo(System.currentTimeMillis() - tiempoInicio);					}
 				}
-				Thread.sleep(1000);
+				Thread.sleep(Configuracion.ESPERA_PASIVA);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -47,10 +47,6 @@ public class Taquilla implements Runnable {
 
 	public void cerrarTaquilla() {
 		this.abierta = false;
-	}
-
-	public long getTiempoEnVenderTodo() {
-		return tiempoEnVenderTodo;
 	}
 
 }
