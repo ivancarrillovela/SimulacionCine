@@ -16,9 +16,14 @@ public class Taquilla implements Runnable{
 
 	@Override
 	public void run() {
-		while(abierta) {
+		System.out.println("La Taquilla " + id + " acaba de abrir");
+		while(abierta && cine.asientosLibres() > 0) {
 			
 		}
+	}
+	
+	public void cerrarTaquilla() {
+		this.abierta = false;
 	}
 
 }

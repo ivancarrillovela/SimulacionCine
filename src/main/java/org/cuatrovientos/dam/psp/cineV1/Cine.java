@@ -20,5 +20,9 @@ public class Cine {
 		}
 		return false;
 	}
+	
+	public synchronized int asientosLibres() {
+		return asientosDisponibles;
+	}
 
 }
