@@ -9,4 +9,8 @@ public class Cliente {
 		this.id = id;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 }
