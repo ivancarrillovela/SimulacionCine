@@ -12,7 +12,7 @@ public class Cine {
 		this.asientosDisponibles = asientos;
 	}
 	
-	public boolean venderEntrada() {
+	public synchronized boolean venderEntrada() {
 		if (asientosDisponibles < 0) {
 			asientosDisponibles--;
 			entradasVendidas++;
