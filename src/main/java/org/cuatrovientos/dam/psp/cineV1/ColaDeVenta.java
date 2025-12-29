@@ -5,12 +5,9 @@ import java.util.Queue;
 
 public class ColaDeVenta{
 	
-	private Queue<Cliente> colaInfinita;
+	private Queue<Cliente> colaInfinita = new LinkedList<>();;
 
-	public ColaDeVenta() {
-		super();
-		this.colaInfinita = new LinkedList<>();
-	}
+	public ColaDeVenta() {}
 	
 	public synchronized void anadirCliente(Cliente cliente) {
 		this.colaInfinita.add(cliente);
