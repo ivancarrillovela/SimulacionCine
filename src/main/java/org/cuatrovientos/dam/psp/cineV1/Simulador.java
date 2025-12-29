@@ -38,7 +38,11 @@ public class Simulador {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
+		
+		System.out.println("DATOS FINALES:");
+		System.out.println(miCine.getEntradasVendidas() + "clientes han visto la película");
+		System.out.println(colaDeVenta.clientesEnCola() + "clientes se han quedado sin entrada");
+		System.out.println("Se han tardado " + miCine.getTiempoEnVenderTodo() / 60 / 1000 + " minutos en vender todas las entradas");
 	}
 
 }

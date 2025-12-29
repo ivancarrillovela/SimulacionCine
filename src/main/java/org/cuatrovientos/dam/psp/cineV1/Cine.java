@@ -5,6 +5,7 @@ public class Cine {
 	private String nombre;
 	private int asientosDisponibles;
 	private int entradasVendidas = 0;
+	private long tiempoEnVenderTodo;
 	
 	public Cine(String nombre, int asientos) {
 		super();
@@ -23,6 +24,18 @@ public class Cine {
 	
 	public synchronized int asientosLibres() {
 		return asientosDisponibles;
+	}
+
+	public int getEntradasVendidas() {
+		return entradasVendidas;
+	}
+
+	public synchronized void setTiempoEnVenderTodo(long tiempoEnVenderTodo) {
+		this.tiempoEnVenderTodo = tiempoEnVenderTodo;
+	}
+
+	public long getTiempoEnVenderTodo() {
+		return tiempoEnVenderTodo;
 	}
 
 }
