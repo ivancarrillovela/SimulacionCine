@@ -1,6 +1,10 @@
 package org.cuatrovientos.dam.psp.cineV1;
 
+import java.util.Random;
+
 public class GeneradorClientes implements Runnable{
+	
+	Random rnd = new Random();
 	
 	private int id;
 	private ColaDeVenta colaDeVenta;
@@ -16,8 +20,15 @@ public class GeneradorClientes implements Runnable{
 	public void run() {
 		int idNuevoCliente = 0;
 		while (estaActivo) {
-			Cliente cliente = new Cliente(idNuevoCliente++);
-			colaDeVenta.anadirCliente(cliente);
+			try {
+				Cliente cliente = new Cliente(idNuevoCliente++);
+				colaDeVenta.anadirCliente(cliente);
+				
+				long tiempoEspera = rnd.nextLong(4000,6001);
+				Thread.sleep(tiempoEspera);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
