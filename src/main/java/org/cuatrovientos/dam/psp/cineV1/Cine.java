@@ -4,7 +4,7 @@ public class Cine {
 	
 	private String nombre;
 	private int asientosDisponibles;
-	private int entradasVendidas;
+	private int entradasVendidas = 0;
 	
 	public Cine(String nombre, int asientos) {
 		super();
@@ -13,7 +13,7 @@ public class Cine {
 	}
 	
 	public synchronized boolean venderEntrada() {
-		if (asientosDisponibles < 0) {
+		if (asientosDisponibles > 0) {
 			asientosDisponibles--;
 			entradasVendidas++;
 			return true;
