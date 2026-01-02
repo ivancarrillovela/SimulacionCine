@@ -5,17 +5,21 @@ public class Simulador {
 	public static void main(String[] args) {
 
 		Cine miCine = new Cine(Configuracion.NOMBRE_CINE, Configuracion.NUM_ASIENTOS);
-		ColaDeVenta colaDeVenta = new ColaDeVenta(Configuracion.NUM_ID_INICIAL);
 		
-		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.NUM_ID_INICIAL, colaDeVenta);
-		Taquilla taquilla1 = new Taquilla(1, miCine, colaDeVenta);
-		Taquilla taquilla2 = new Taquilla(2, miCine, colaDeVenta);
+		ColaDeVenta[] colasDeVenta = new ColaDeVenta[4];
+		for (int i = 0; i < 4; i++) {
+			colasDeVenta[i] = new ColaDeVenta(i + 1, 10);
+		}
+		
+		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.NUM_ID_INICIAL, colasDeVenta);
+		Taquilla taquilla1 = new Taquilla(1, miCine, colasDeVenta);
+		Taquilla taquilla2 = new Taquilla(2, miCine, colasDeVenta);
 		
 		Thread hiloGenerador = new Thread(generadorClientes);
 		Thread hiloT1 = new Thread(taquilla1);
 		Thread hiloT2 = new Thread(taquilla2);
 		
-		System.out.println("---BIENVENIDO A LOS CINES " + miCine.getNombre().toUpperCase() + "---");
+		System.out.println("---BIENVENIDO A LOS CINES " + miCine.getNombre().toUpperCase() + ".V2---");
 		System.out.println("¡¡¡SE ABREN LAS TAQUILLAS!!! Quedan 30 minutos para empezar la película");
 		
 		hiloGenerador.start();
