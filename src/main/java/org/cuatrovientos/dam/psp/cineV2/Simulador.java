@@ -27,7 +27,7 @@ public class Simulador {
 			
 			System.out.println("¡¡¡SE CIERRAN LAS TAQUILLAS!!! La película empieza ya");
 
-			generadorClientes.pararGenerador();
+			pararGeneradorDeClientes();
 			
 			cerrarTaquillas();
 			
@@ -38,9 +38,12 @@ public class Simulador {
 	}
 
 	private static void mostrarDatosFinales() {
+		// Imprimimos información sobre la simulación.
 		System.out.println("DATOS FINALES:\n");
 		System.out.println(miCine.getEntradasVendidas() + "clientes han visto la película\n");
 
+		// Recorremos cada cola sacando el número de clientes que se han quedado en la cola y 
+		// vamos sumando el total de todas las colas en totalSinEntrada para imprimirlo después.
 		int totalSinEntrada = 0;
 		for (ColaDeVenta colaDeVenta : colasDeVenta) {
 			System.out.println("Cola de venta " + colaDeVenta.getId() + ": " + colaDeVenta.numClientesEnCola()
@@ -53,33 +56,44 @@ public class Simulador {
 	}
 
 	private static void cerrarTaquillas() throws InterruptedException {
+		// Recorremos todas las taquillas y las va cerrando de forma lógica (cambia la variable abierta a false).
 		for (Taquilla taquilla : taquillas) {
 			taquilla.cerrarTaquilla();
-		}
-
-		hiloGenerador.join();
+		}		
+		// Esperamos a que teminen los hilos ya que alguno podria no haber terminado la última vuelta del bucle.
 		for (Thread hilo : hilosTaquillas) {
 			hilo.join();
 		}
 	}
-
-	private static void crearColasDeVenta() {
-		for (int i = 0; i < Configuracion.NUM_COLAS; i++) {
-			colasDeVenta[i] = new ColaDeVenta(i + 1, Configuracion.AFORO_MAX_POR_COLA);
-		}
+	
+	private static void pararGeneradorDeClientes() throws InterruptedException {
+		// Paramos el generador de forma lógica (cambia la variable estaActivo a false).
+		generadorClientes.pararGenerador();
+		// Esperamos a que teminen el hilo ya que podria no haber terminado la última vuelta del bucle.
+		hiloGenerador.join();
 	}
 
 	private static void lanzarHilosTaquillas() {
+		// Lanzamos el hilo del generador de clientes.
 		hiloGenerador.start();
+		// Recorremos el array de hilos de taquillas y vamos lanzando cada uno de ellos.
 		for (Thread hilo : hilosTaquillas) {
 			hilo.start();
 		}
 	}
 
 	private static void crearTaquillas() {
+		// Creamos tantas taquillas como indica la clase de configuración.
 		for (int i = 0; i < Configuracion.NUM_TAQUILLAS; i++) {
 			taquillas[i] = new Taquilla(i + 1, miCine, colasDeVenta);
 			hilosTaquillas[i] = new Thread(taquillas[i]);
+		}
+	}
+	
+	private static void crearColasDeVenta() {
+		// Creamos tantas colas de venta como indica la clase de configuración.
+		for (int i = 0; i < Configuracion.NUM_COLAS; i++) {
+			colasDeVenta[i] = new ColaDeVenta(i + 1, Configuracion.AFORO_MAX_POR_COLA);
 		}
 	}
 
