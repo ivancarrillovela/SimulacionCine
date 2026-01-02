@@ -15,12 +15,27 @@ public class ColaDeVenta{
 		this.semaforoAforo = new Semaphore(aforoMaximo);
 	}
 	
-	public synchronized void anadirCliente(Cliente cliente) {
-		this.cola.add(cliente);
+	public boolean anadirCliente(Cliente cliente) {
+		if (semaforoAforo.tryAcquire()) {
+			synchronized (this) {
+				cola.add(cliente);
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	public synchronized Cliente cogerCliente() {
-		return cola.isEmpty() ? null : cola.poll();
+	public Cliente cogerCliente() {
+		Cliente primerCliente = null;
+		if (semaforoAforo.tryAcquire()) {
+			synchronized (this) {
+				primerCliente = cola.poll();
+			}
+		}
+		if (primerCliente != null) {
+			semaforoAforo.release();
+		}
+		return primerCliente;
 	}
 	
 	public synchronized int numClientesEnCola() {
