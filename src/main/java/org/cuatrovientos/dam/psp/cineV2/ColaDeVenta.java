@@ -27,11 +27,9 @@ public class ColaDeVenta{
 	
 	public Cliente cogerCliente() {
 		Cliente primerCliente = null;
-		if (semaforoAforo.tryAcquire()) {
-			synchronized (this) {
+		synchronized (this) {
 				primerCliente = cola.poll();
-			}
-		}
+		}		
 		if (primerCliente != null) {
 			semaforoAforo.release();
 		}
