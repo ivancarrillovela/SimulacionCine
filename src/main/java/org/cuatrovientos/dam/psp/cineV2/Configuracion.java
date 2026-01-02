@@ -26,4 +26,13 @@ public class Configuracion {
     // Numero incial para Ids
     public static final int NUM_ID_INICIAL = 1;
     
+    // Aforo máximo para cada cola
+    public static final int AFORO_MAX_POR_COLA = 10;
+    
+    // Cantidad de colas para la simulación
+    public static final int NUM_COLAS = 4;
+    
+ // Cantidad de taquillas para la simulación
+    public static final int NUM_TAQUILLAS = 2;
+    
 }

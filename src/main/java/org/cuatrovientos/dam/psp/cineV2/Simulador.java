@@ -6,37 +6,43 @@ public class Simulador {
 
 		Cine miCine = new Cine(Configuracion.NOMBRE_CINE, Configuracion.NUM_ASIENTOS);
 		
-		ColaDeVenta[] colasDeVenta = new ColaDeVenta[4];
-		for (int i = 0; i < 4; i++) {
-			colasDeVenta[i] = new ColaDeVenta(i + 1, 10);
+		ColaDeVenta[] colasDeVenta = new ColaDeVenta[Configuracion.NUM_COLAS];
+		for (int i = 0; i < Configuracion.NUM_COLAS; i++) {
+			colasDeVenta[i] = new ColaDeVenta(i + 1, Configuracion.AFORO_MAX_POR_COLA);
 		}
 		
 		GeneradorClientes generadorClientes = new GeneradorClientes(Configuracion.NUM_ID_INICIAL, colasDeVenta);
-		Taquilla taquilla1 = new Taquilla(1, miCine, colasDeVenta);
-		Taquilla taquilla2 = new Taquilla(2, miCine, colasDeVenta);
-		
 		Thread hiloGenerador = new Thread(generadorClientes);
-		Thread hiloT1 = new Thread(taquilla1);
-		Thread hiloT2 = new Thread(taquilla2);
+		
+		Taquilla[] taquillas = new Taquilla[Configuracion.NUM_TAQUILLAS];
+		Thread[] hilosTaquillas = new Thread[Configuracion.NUM_TAQUILLAS];
+		
+		for (int i = 0; i < Configuracion.NUM_TAQUILLAS; i++) {
+			taquillas[i] = new Taquilla(i + 1, miCine, colasDeVenta);
+			hilosTaquillas[i] = new Thread(taquillas[i]);
+		}
 		
 		System.out.println("---BIENVENIDO A LOS CINES " + miCine.getNombre().toUpperCase() + ".V2---");
 		System.out.println("¡¡¡SE ABREN LAS TAQUILLAS!!! Quedan 30 minutos para empezar la película");
 		
 		hiloGenerador.start();
-		hiloT1.start();
-		hiloT2.start();
+		for (Thread hilo : hilosTaquillas) {
+			hilo.start();
+		}
 		
 		try {
 			Thread.sleep(Configuracion.TIEMPO_APERTURA);
 			System.out.println("¡¡¡SE CIERRAN LAS TAQUILLAS!!! La película empieza ya");
 			
 			generadorClientes.pararGenerador();
-			taquilla1.cerrarTaquilla();
-			taquilla2.cerrarTaquilla();
+			for (Taquilla taquilla : taquillas) {
+				taquilla.cerrarTaquilla();
+			}
 			
 			hiloGenerador.join();
-			hiloT1.join();
-			hiloT2.join();
+			for (Thread hilo : hilosTaquillas) {
+				hilo.join();
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
