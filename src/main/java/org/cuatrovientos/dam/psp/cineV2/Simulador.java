@@ -47,9 +47,15 @@ public class Simulador {
 			e.printStackTrace();
 		}
 		
-		System.out.println("DATOS FINALES:");
-		System.out.println(miCine.getEntradasVendidas() + "clientes han visto la película");
-		System.out.println(colaDeVenta.numClientesEnCola() + "clientes se han quedado sin entrada");
+		System.out.println("DATOS FINALES:\n");
+		System.out.println(miCine.getEntradasVendidas() + "clientes han visto la película\n");
+		
+		int totalSinEntrada = 0;
+		for (ColaDeVenta colaDeVenta : colasDeVenta) {
+			System.out.println("Cola de venta " + colaDeVenta.getId() + ": " + colaDeVenta.numClientesEnCola() + "clientes se han quedado sin entrada");
+			totalSinEntrada += colaDeVenta.numClientesEnCola();
+		}
+		System.out.println("TOTAL CLIENTES SIN ENTRADA: " + totalSinEntrada + "\n");
 		System.out.println("Se han tardado " + miCine.getTiempoEnVenderTodo() / 60 / 1000 + " minutos en vender todas las entradas");
 	}
 
