@@ -13,6 +13,7 @@ public class Cine {
 		this.asientosDisponibles = asientos;
 	}
 	
+	// Synchronized para asegurarnos de no vender la misma entrada por varios hilos diferentes a la vez.
 	public synchronized boolean venderEntrada() {
 		if (asientosDisponibles > 0) {
 			asientosDisponibles--;
@@ -22,6 +23,7 @@ public class Cine {
 		return false;
 	}
 	
+	// Synchronized para tener siempre el valor real actual.
 	public synchronized int asientosLibres() {
 		return asientosDisponibles;
 	}
@@ -29,7 +31,7 @@ public class Cine {
 	public int getEntradasVendidas() {
 		return entradasVendidas;
 	}
-
+	
 	public synchronized void setTiempoEnVenderTodo(long tiempoEnVenderTodo) {
 		this.tiempoEnVenderTodo = tiempoEnVenderTodo;
 	}
