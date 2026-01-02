@@ -41,6 +41,10 @@ public class ColaDeVenta{
 	public synchronized int numClientesEnCola() {
 		return cola.size();
 	}
+	
+	public synchronized boolean hayClientes() {
+		return cola.isEmpty() ? false : true;
+	}
 
 	public int getId() {
 		return id;

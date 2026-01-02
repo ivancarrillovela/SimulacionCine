@@ -8,14 +8,14 @@ public class Taquilla implements Runnable {
 
 	private int id;
 	private Cine cine;
-	private ColaDeVenta colaDeVenta;
+	private ColaDeVenta[] colasDeVenta;
 	private boolean abierta = true;
 			
-	public Taquilla(int id, Cine cine, ColaDeVenta colaDeVenta) {
+	public Taquilla(int id, Cine cine, ColaDeVenta[] colasDeVenta) {
 		super();
 		this.id = id;
 		this.cine = cine;
-		this.colaDeVenta = colaDeVenta;
+		this.colasDeVenta = colasDeVenta;
 	}
 
 	@Override
@@ -25,14 +25,20 @@ public class Taquilla implements Runnable {
 		
 		while (abierta && cine.asientosLibres() > 0) {
 			try {
-				Cliente cliente = colaDeVenta.cogerCliente();
+				Cliente clienteAtendido = null;
+				for (ColaDeVenta colaDeVenta : colasDeVenta) {
+					if (colaDeVenta.hayClientes()) {
+						clienteAtendido = colaDeVenta.cogerCliente();
+						break;
+					}
+				}
 
-				if (cliente != null) {
+				if (clienteAtendido != null) {
 					long tiempoPorVenta = rnd.nextLong(Configuracion.TIEMPO_VENTA_MIN, Configuracion.TIEMPO_VENTA_MAX);
 					Thread.sleep(tiempoPorVenta);
 
 					if (cine.venderEntrada()) {
-						System.out.println("TAQUILLA " + id + ": entrada vendida al cliente " + cliente.getId());
+						System.out.println("TAQUILLA " + id + ": entrada vendida al cliente " + clienteAtendido.getId());
 					} else {
 						System.out.println("TAQUILLA " + id + ": SE HAN AGOTADO LAS ENTRADAS");
 						cine.setTiempoEnVenderTodo(System.currentTimeMillis() - tiempoInicio);
