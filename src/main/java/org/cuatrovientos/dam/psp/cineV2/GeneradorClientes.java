@@ -28,7 +28,7 @@ public class GeneradorClientes implements Runnable{
                 // Como anadirCliente() usa tryAcquire si una cola está llena no se bloquea y pasa a la siguiente del array.
 				for (ColaDeVenta colaDeVenta : colasDeVenta) {
 					if (colaDeVenta.anadirCliente(cliente)) {
-						System.out.println("Cliente " + id + " añadido a la cola de venta " + colaDeVenta.getId());
+						System.out.println("Cliente " + cliente.getId() + " añadido a la cola de venta " + colaDeVenta.getId());
 						clienteAnadido = true;
 						break;
 					}
@@ -36,7 +36,7 @@ public class GeneradorClientes implements Runnable{
 				
 				// Si recorremos todas las colas y todas devuelven false es que estan todas llenas.
 				if (!clienteAnadido) {
-					System.out.println("CLIENTE " + id + "SE MARCHA! NO HAY AFORO!");
+					System.out.println("CLIENTE " + cliente.getId() + "SE MARCHA! NO HAY AFORO!");
 				}
 				
 				// Controlo el ritmo de llegada de los clientes usando Thread.sleep
