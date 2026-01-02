@@ -42,4 +42,8 @@ public class ColaDeVenta{
 		return cola.size();
 	}
 
+	public int getId() {
+		return id;
+	}
+
 }
